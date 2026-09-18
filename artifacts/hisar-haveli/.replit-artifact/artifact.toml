@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Hisar Haveli"
+description = "A warm, mobile-first restaurant website for Hisar Haveli, a veg-only dhaba in Hisar. Showcases the menu, dining atmosphere, hours, location, and direct ordering actions for hungry local guests."
+version = "1.0.0"
+id = "artifacts/hisar-haveli"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18355
+
+[services.development]
+run = "pnpm --filter @workspace/hisar-haveli run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/hisar-haveli", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/hisar-haveli/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18355"
+BASE_PATH = "/"
